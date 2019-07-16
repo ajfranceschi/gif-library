@@ -29,7 +29,8 @@ $('#navBar').on('click', '.nav-link', (e) => {
 })
 
 
-$('form').on('submit', () => {
+$('form').on('submit', (e) => {
+    e.preventDefault();
     const topicToAdd = $('#topicToAdd').val();
     $('#topicToAdd').val('');
     let navItem = $('<li>');
