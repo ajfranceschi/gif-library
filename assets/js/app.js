@@ -23,22 +23,21 @@ const getGifs = (queryItem) => {
         });
 }
 
-$('.nav-link').on('click', (e) => {
-    console.log('clicked');
+$('#navBar').on('click', '.nav-link', (e) => {
     $('#gifContainer').html('');
-    getGifs(e.target.text);
+    getGifs(e.target.value);
 })
 
 
 $('form').on('submit', () => {
     const topicToAdd = $('#topicToAdd').val();
-    console.log(topicToAdd);
+    $('#topicToAdd').val('');
     let navItem = $('<li>');
     navItem.addClass('nav-item');
 
-    const navLink = $('<a>');
-    navLink.addClass('nav-link');
-    navLink.attr('href', '#');
+    const navLink = $('<button>');
+    navLink.addClass('nav-link btn');
+    navLink.attr('value', topicToAdd);
     navLink.text(topicToAdd);
     navItem.append(navLink);
 
