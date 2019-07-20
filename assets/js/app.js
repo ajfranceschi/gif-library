@@ -1,4 +1,5 @@
 const topics = ['Star Wars', 'The Big Bang Theory', 'Star Trek', 'The Orville', 'Battlestar Galactica']
+
 const createQueryURL = (queryItem) => {
     return "https://api.giphy.com/v1/gifs/search?api_key=GKwA57i0nyuYd3slVSsZEWet5HMrfuD3&q=" + queryItem + "&limit=10&offset=0&rating=PG-13&lang=en";
 }
@@ -11,6 +12,7 @@ const getGifs = (queryItem) => {
         method: 'get'
     })
         .then(res => {
+            $('#gifContainer').html('');
             for (let gifObject of res.data) {
                 var imgElement = $('<img>');
                 imgElement.attr('src', gifObject.images.downsized_still.url);
@@ -25,19 +27,39 @@ const getGifs = (queryItem) => {
         });
 }
 
-getGifs('Star Wars');
+const loadButtons = () => {
+    for (topic of topics) {
+        const navItem = $('<li>');
+        navItem.addClass('nav-item');
+
+        const navLink = $('<button>');
+        navLink.addClass('nav-link btn');
+        navLink.attr('value', topic.toLowerCase());
+        navLink.text(topic);
+        navItem.append(navLink);
+
+        $('#navBar').append(navItem);
+    }
+}
+
+loadButtons();
+getGifs(topics[0]);
+
+
+
+
 
 $('#navBar').on('click', '.nav-link', (e) => {
-    $('#gifContainer').html('');
+    $('#gifContainer').html('<h3>Loading...</h3>');
     getGifs(e.target.value);
 })
 
 
 $('form').on('submit', (e) => {
     e.preventDefault();
-    const topicToAdd = $('#topicToAdd').val();
+    const topicToAdd = $('#topicToAdd').val().trim();
     $('#topicToAdd').val('');
-    let navItem = $('<li>');
+    const navItem = $('<li>');
     navItem.addClass('nav-item');
 
     const navLink = $('<button>');
@@ -63,4 +85,3 @@ $(document.body).on('click', 'img', function() {
 
     }
 })
-
