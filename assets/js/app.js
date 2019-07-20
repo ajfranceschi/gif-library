@@ -1,4 +1,4 @@
-
+const topics = ['Star Wars', 'The Big Bang Theory', 'Star Trek', 'The Orville', 'Battlestar Galactica']
 const createQueryURL = (queryItem) => {
     return "https://api.giphy.com/v1/gifs/search?api_key=GKwA57i0nyuYd3slVSsZEWet5HMrfuD3&q=" + queryItem + "&limit=10&offset=0&rating=PG-13&lang=en";
 }
